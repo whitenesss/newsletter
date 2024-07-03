@@ -1,0 +1,33 @@
+{% extends 'clients/base.html' %}
+{% block content %}
+{% for email_message in object_list %}
+<div class="card">
+    <div class="cart-header"></div>
+    <div class="card-body">
+        <form method="post">
+
+            <div class="form-group">
+                <h3>Рассылка</h3>
+                <h6>Название рассылки: {{ email_message.name }}</h6>
+
+                <h6>Статус: {{ email_message.status}}</h6>
+
+
+                <h6>время рассылки: {{ email_message.next_send_time}}</h6>
+                {% if user == email_message.owner or user.is_superuser %}
+
+                <a type="submit" class="btn btn-outline-primary btn-block mb-2" href="{% url 'email_massages:email_message_detail' email_message.pk %}">детали рассылки</a>
+                <a type="submit" class="btn btn-outline-primary btn-block mb-2" href="{% url 'email_massages:email_message_update' email_message.pk %}">обновление рассылки</a>
+                <a type="submit" class="btn btn-outline-primary btn-block mb-2" href="{% url 'email_massages:email_message_delete' email_message.pk %}">удалить</a>
+                {% endif %}
+
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
