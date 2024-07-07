@@ -1,9 +1,15 @@
+import random
+
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
 
+from blog.models import Blog
+from blog.services import get_blog_from_cache
 from clients.forms import ClientsForm
 from clients.models import Client
 from django.views.generic import TemplateView
@@ -22,8 +28,9 @@ class HomeView(TemplateView):
         email_massages = EmailMessage.objects.all()
         client = Client.objects.all()
         context_data['all_email_massages'] = email_massages.count()
-        context_data['active_email_messages'] = email_massages.filter(status=EmailMessage.STARTED).count
-        context_data['unique_client'] = client.values('email').distinct().count
+        context_data['active_email_messages'] = email_massages.filter(status=EmailMessage.STARTED).count()
+        context_data['unique_client'] = client.values('email').distinct().count()
+        context_data['random_blogs'] = get_blog_from_cache().order_by('?')[:3]
         return context_data
 
 

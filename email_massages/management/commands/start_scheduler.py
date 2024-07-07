@@ -56,7 +56,6 @@ def my_job():
 def start_scheduler():
     scheduler = BlockingScheduler()
 
-    # Проверка, добавлена ли задача уже
     if not scheduler.get_jobs():
         scheduler.add_job(my_job, 'interval', seconds=30)
 

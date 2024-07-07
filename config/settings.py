@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'email_massages',
     'users',
     'django_apscheduler',
+    'blog'
 ]
 
 MIDDLEWARE = [
