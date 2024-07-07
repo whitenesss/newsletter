@@ -1,0 +1,32 @@
+{% extends 'clients/base.html'%}
+{% block content %}
+
+<div class="container-center">
+    <div class="card shadow-sm">
+        <div class="cart-header bg-secondary text-white p-3 rounded-top text-center">рассылка</div>
+        <div class="card-body">
+            <h1 class="jumbotron-heading">Информация о рассылке</h1>
+            <div class="row">
+                <div class="col-12">
+                    <p class="card-text">Название: {{ emailmessage.name }}</p>
+                    <p class="card-text">Описание: {{ emailmessage.description }}</p>
+                    <p class="card-text">Статус: {{ emailmessage.status }}</p>
+                    <p class="card-text">Периодичность: {{ emailmessage.periodicity }}</p>
+                    <p class="card-text">Дата начала: {{ emailmessage.start_date }}</p>
+                    <p class="card-text">Следующая отправка: {{ emailmessage.next_send_time }}</p>
+                    <p class="card-text">Дата окончания: {{ emailmessage.end_date }}</p>
+                    <p class="card-text">Владелец: {{ emailmessage.owner }}</p>
+                    <p class="card-text">Сообщение: {{ emailmessage.message }}</p>
+                    <p class="card-text">Клиенты: </p>
+                    {% for client in emailmessage.clients.all %}
+                    <p class="card-text"> {{ client.email }}</p>
+                    {% endfor %}
+
+                    <a href="{% url 'email_massages:email_message_list' %}" class="btn btn-outline-primary btn-block mb-2">Назад</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

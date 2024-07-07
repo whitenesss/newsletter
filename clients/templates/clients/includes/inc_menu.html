@@ -1,0 +1,39 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <a class="my-0 mr-md-auto font-weight-normal" href="{% url 'clients:index' %}">Главная</a>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <div class="col-6 col-md">
+            <ul class="list-unstyled text-small">
+
+                <a class="p-2 text-dark" href="{% url 'clients:clients_list' %}">Список клиентов</a>
+                <a class="p-2 text-dark" href="{% url 'message:message' %}">Список текстов рассылок</a>
+                <a class="p-2 text-dark" href="{% url 'email_massages:email_message_list' %}">Список рассылок</a>
+
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <ul class="list-unstyled text-small">
+
+                <a type="submit" class="btn btn-primary" href="{% url 'clients:client_create' %}">добавить клиента</a>
+                <a type="submit" class="btn btn-primary" href="{% url 'message:message_create' %}">создание текстов рассылок</a>
+                <a type="submit" class="btn btn-primary" href="{% url 'email_massages:email_message_create' %}">создание
+                    рассылки</a>
+
+            </ul>
+        </div>
+    </nav>
+
+    {% if user.is_authenticated %}
+
+    <form id="logout-form" method="post" action="{% url 'users:logout' %}" style="display: none;">
+        {% csrf_token %}
+    </form>
+    <ul class="list-unstyled text-small">
+        <a class="p-2 btn btn-outline-primary" href="#"
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit(); return false;">выйти</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'users:profile' %}">профиль</a>
+        {% else %}
+        <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">войти</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'users:register' %}">регистрация</a>
+        {% endif %}
+    </ul>
+</div>
