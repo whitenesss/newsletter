@@ -10,3 +10,4 @@ class LogiListView(ListView):
     Контроллер отвечающий за отображение списка попыток рассылок
     """
     model = Logi
+    template_name = 'logi/logi_list.html'
